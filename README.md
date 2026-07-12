@@ -49,6 +49,7 @@ The application is designed around a modular architecture:
 - Azure Blob Storage
 - Azure Cosmos DB
 - Azure OpenAI / Azure AI Foundry
+- Azure Storage Account
 - Azure Entra ID (optional future integration)
 
 ## Installation

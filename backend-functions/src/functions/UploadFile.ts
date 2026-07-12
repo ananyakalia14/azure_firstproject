@@ -12,8 +12,23 @@ class HttpError extends Error {
         super(message);
     }
 }
+function corsHeaders(): Record<string, string> {
+    return {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+        "Access-Control-Max-Age": "86400"
+    };
+}
 function json(status: number, body: object): HttpResponseInit {
-    return { status, jsonBody: body, headers: { "Content-Type": "application/json" } };
+    return {
+        status,
+        jsonBody: body,
+        headers: { "Content-Type": "application/json", ...corsHeaders() }
+    };
+}
+function emptyResponse(status: number): HttpResponseInit {
+    return { status, headers: corsHeaders() };
 }
 function createUniquePdfFileName(): string {
     // The storage name is deterministic enough for operations and unique enough for concurrent uploads.
@@ -90,6 +105,10 @@ async function parseMultipartPdf(request: HttpRequest): Promise<ParsedFile> {
     });
 }
 export async function UploadFile(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
+    if (request.method === "OPTIONS") {
+        return emptyResponse(204);
+    }
+
     try {
         // The function validates HTTP input, then delegates all Azure Blob operations to the service layer.
         const parsedFile = await parseMultipartPdf(request);
@@ -117,7 +136,7 @@ export async function UploadFile(request: HttpRequest, context: InvocationContex
     }
 }
 app.http("UploadFile", {
-    methods: ["POST"],
+    methods: ["POST", "OPTIONS"],
     authLevel: "anonymous",
     handler: UploadFile
 });

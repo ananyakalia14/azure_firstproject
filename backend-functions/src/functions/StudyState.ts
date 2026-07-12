@@ -1,8 +1,25 @@
 import { app, HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
 import { cosmosStudyStateService } from "../services/cosmosService";
 
+function corsHeaders(): Record<string, string> {
+    return {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+        "Access-Control-Max-Age": "86400"
+    };
+}
+
 function json(status: number, body: object): HttpResponseInit {
-    return { status, jsonBody: body, headers: { "Content-Type": "application/json" } };
+    return {
+        status,
+        jsonBody: body,
+        headers: { "Content-Type": "application/json", ...corsHeaders() }
+    };
+}
+
+function emptyResponse(status: number): HttpResponseInit {
+    return { status, headers: corsHeaders() };
 }
 
 function stripMetadata(document: any) {
@@ -19,6 +36,10 @@ async function readStateBody(request: HttpRequest) {
 }
 
 export async function StudyState(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
+    if (request.method === "OPTIONS") {
+        return emptyResponse(204);
+    }
+
     try {
         if (request.method === "GET") {
             return json(200, stripMetadata(await cosmosStudyStateService.load()));
@@ -42,7 +63,7 @@ export async function StudyState(request: HttpRequest, context: InvocationContex
 }
 
 app.http("StudyState", {
-    methods: ["GET", "PUT", "DELETE"],
+    methods: ["GET", "PUT", "DELETE", "OPTIONS"],
     authLevel: "anonymous",
     handler: StudyState
 });

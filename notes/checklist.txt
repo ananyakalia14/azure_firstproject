@@ -1,0 +1,11 @@
+□ Frontend starts = YES
+□ Azure Functions start = 
+□ Upload PDF works = NO 
+□ PDF appears in Blob Storage = 
+□ Summary API works = 
+□ Flashcards API works = 
+□ Quiz API works = 
+□ Cosmos DB saves data = 
+□ Dashboard updates = 
+□ No console errors = 
+□ No terminal errors = 

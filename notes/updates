@@ -1,0 +1,103 @@
+✅ **Files Created (5 New Files)**
+
+1. **`src/types/pdf.ts`** - TypeScript types
+   - PDFDocument, PDFViewerState, PDFViewerActions
+   - All interfaces with strict typing (no `any`)
+
+2. **`src/services/pdfService.ts`** - Service Layer
+   - `fetchPDFDocument()` - Load PDF from blob URL
+   - `renderPDFPage()` - Render page to canvas with zoom
+   - `downloadPDF()` - Download with CORS support
+   - `validateBlobURL()` - Check if URL is valid
+   - `calculateFitWidthZoom()` - Smart zoom calculation
+   - `clampZoom()` - Zoom bounds
+
+3. **`src/components/study/PDFViewer.tsx`** - Main Viewer
+   - Canvas-based PDF rendering (pdfjs-dist)
+   - Navigation (Previous, Next, Direct Page Input)
+   - Zoom controls (In, Out, Fit Width, %)
+   - Download & Open in New Tab
+   - Loading skeleton
+   - Responsive design
+
+4. **`src/components/study/PDFErrorState.tsx`** - Error Display
+   - User-friendly error messages
+   - [Retry] [Download] [Open in Browser] buttons
+   - Handles expired URLs
+
+5. **`src/components/study/PDFSidebar.tsx`** - BONUS Sidebar
+   - Collapsible sidebar (toggle button bottom-right)
+   - Placeholder cards for Summary, Flashcards, Quiz
+   - Future-ready for integration
+
+### 📝 **Files Modified (4 Files)**
+
+1. **`src/routes/_app.notes.$noteId.tsx`**
+   - Added "Preview" tab (Eye icon) at top of navigation
+
+2. **`src/routes/_app.notes.$noteId.preview.tsx`** - NEW ROUTE
+   - Main preview page (`/notes/{id}/preview`)
+   - Full-screen PDF viewer with controls
+
+3. **`src/routes/_app.dashboard.tsx`**
+   - Added Preview button next to each recent note
+
+4. **`src/routes/_app.history.tsx`**
+   - Added Preview button in history table
+
+---
+
+## ✨ **Features Implemented**
+
+### Core Controls
+- ✅ Previous/Next Page buttons
+- ✅ Current Page Input (jump to any page)
+- ✅ Total Pages display
+- ✅ Zoom In/Out (+/- 20% per click)
+- ✅ Fit Width (auto-calculate scale)
+- ✅ Zoom % display
+- ✅ Download PDF button
+- ✅ Open in New Tab button
+- ✅ Page bounds validation
+
+### UX/Loading
+- ✅ Loading skeleton while fetching
+- ✅ Error state with friendly messages
+- ✅ Retry functionality
+- ✅ Download fallback for expired URLs
+
+### Responsive Design
+- ✅ Desktop: Toolbar top, PDF centered
+- ✅ Mobile: Compact toolbar, full-width PDF
+- ✅ Touch-friendly buttons
+- ✅ Adaptive icon/text sizing
+
+### Design System
+- ✅ Uses existing theme tokens (Deep Teal, Coral, Mint)
+- ✅ Tailwind CSS v4 styling
+- ✅ shadcn/ui components
+- ✅ No branding changes
+
+### BONUS: AI Sidebar
+- ✅ Collapsible from bottom-right
+- ✅ Placeholder cards (Summary, Flashcards, Quiz)
+- ✅ Ready for future integration
+
+---
+
+## 🔗 **API Endpoints Used**
+
+| Endpoint | Purpose | Status |
+|----------|---------|--------|
+| `GET /StudyState` | Fetch notes with blob URLs | ✅ Existing |
+| Blob URL (direct) | Download PDF for rendering | ✅ Uses blob storage |
+
+---
+
+## 💾 **Dependencies**
+
+**Already installed** (no new packages needed):
+- ✅ `pdfjs-dist` ^6.1.200 (PDF rendering)
+- ✅ `react` ^19.2.0
+- ✅ `lucide-react` (icons)
+- ✅ `tailwindcss` v4

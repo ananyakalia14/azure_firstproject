@@ -1,52 +1,83 @@
+# ================================
+# Build Output
+# ================================
 bin/
 **/bin/
-!Modules/**
-obj
-csx
-.vs
-edge
-Publish
+obj/
+dist/
+Publish/
 
+# ================================
+# Visual Studio / VS Code
+# ================================
+.vs/
+.vscode/
 *.user
 *.suo
-*.cscfg
 *.Cache
+*.cscfg
 project.lock.json
 
-/packages
-/TestResults
-
-/tools/NuGet.exe
-/App_Data
-/secrets
-/data
-.secrets
-appsettings.json
+# ================================
+# Azure Functions
+# ================================
 local.settings.json
+host.json.bak
+__blobstorage__/
+__queuestorage__/
+__tablestorage__/
+__azurite_db*__.json
+AzuriteConfig
 
-node_modules
-dist
+# ================================
+# Node
+# ================================
+node_modules/
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
-# Local python packages
-.python_packages/
-
-# Python Environments
+# ================================
+# Environment Variables
+# ================================
 .env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
+.env.local
+.env.*
+!.env.example
 
-# Byte-compiled / optimized / DLL files
+# ================================
+# Python
+# ================================
+.python_packages/
 __pycache__/
 *.py[cod]
 *$py.class
 
-# Azurite artifacts
-__blobstorage__
-__queuestorage__
-__tablestorage__/
-__azurite_db*__.json
-AzuriteConfig
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# ================================
+# NuGet
+# ================================
+packages/
+tools/NuGet.exe
+
+# ================================
+# Test Results
+# ================================
+TestResults/
+
+# ================================
+# Misc
+# ================================
+App_Data/
+secrets/
+.secrets/
+data/
+
+# Keep configuration templates
+!local.settings.example.json
